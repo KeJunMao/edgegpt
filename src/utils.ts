@@ -1,6 +1,6 @@
 import consola from "consola";
 import { v4 as uuidv4 } from "uuid";
-import { random } from "lodash-es";
+import _ from "lodash";
 import { DELIMITER } from "./constant";
 import { Cookie } from "./types";
 
@@ -11,7 +11,7 @@ export const logger = consola.create({
 });
 
 export const createForwardedIp = () => {
-  return `13.${random(104, 107)}.${random(0, 255)}.${random(0, 255)}`;
+  return `13.${_.random(104, 107)}.${_.random(0, 255)}.${_.random(0, 255)}`;
 };
 
 export const createHeaders = () => {

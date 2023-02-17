@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@types/lodash-es': ^4.17.6
+      '@types/lodash': ^4.14.191
       '@types/node': ^18.13.0
       '@types/prompts': ^2.4.2
       '@types/uuid': ^9.0.0
@@ -14,7 +14,7 @@ importers:
       c12: ^1.1.2
       consola: ^2.15.3
       esno: ^0.16.3
-      lodash-es: ^4.17.21
+      lodash: ^4.17.21
       prompts: ^2.4.2
       tsup: ^6.6.3
       typed-emitter: ^2.1.0
@@ -27,13 +27,13 @@ importers:
     dependencies:
       c12: 1.1.2
       consola: 2.15.3
-      lodash-es: 4.17.21
+      lodash: 4.17.21
       prompts: 2.4.2
       uuid: 9.0.0
       ws: 8.12.1
       yargs: 17.7.0
     devDependencies:
-      '@types/lodash-es': 4.17.6
+      '@types/lodash': 4.14.191
       '@types/node': 18.13.0
       '@types/prompts': 2.4.2
       '@types/uuid': 9.0.0
@@ -523,12 +523,6 @@ packages:
 
   /@types/chai/4.3.4:
     resolution: {integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw==}
-    dev: true
-
-  /@types/lodash-es/4.17.6:
-    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
-    dependencies:
-      '@types/lodash': 4.14.191
     dev: true
 
   /@types/lodash/4.14.191:
@@ -1424,13 +1418,13 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
-
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /loupe/2.3.4:
     resolution: {integrity: sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ==}

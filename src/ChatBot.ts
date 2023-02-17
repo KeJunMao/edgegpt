@@ -1,4 +1,4 @@
-import { sample } from "lodash-es";
+import _ from "lodash";
 import { ChatHub } from "./ChatHub";
 import { createConversation } from "./conversation";
 import { ResolvedEdgeGPTConfig } from "./types";
@@ -9,7 +9,7 @@ export class ChatBot {
   constructor(public config: ResolvedEdgeGPTConfig) {}
 
   async create() {
-    const cookie = sample(this.config.cookies);
+    const cookie = _.sample(this.config.cookies);
     if (!cookie?.length) {
       throw new Error("Cookies can not be empty");
     }
