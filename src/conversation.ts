@@ -4,7 +4,9 @@ import { createHeaders, stringifyCookie } from "./utils";
 import https from "https";
 import crypto from "crypto";
 
-export const createConversation = async (cookie: Cookie) => {
+export const createConversation = async (
+  cookie: Cookie
+): Promise<Conversation> => {
   return new Promise((resolve, reject) => {
     let response = "";
     const headers = {

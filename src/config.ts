@@ -5,8 +5,8 @@ import { EdgeGPTConfig, ResolvedEdgeGPTConfig } from "./types";
 import { logger } from "./utils";
 
 const configDefaults: EdgeGPTConfig = {
-  cookies: "cookies.json",
-  async: false,
+  cookies: "cookie.json",
+  stream: true,
 };
 
 export const loadEdgeGPTConfig = async (

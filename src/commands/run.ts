@@ -8,7 +8,7 @@ import { logger } from "../utils";
 export const run = async (options: Partial<EdgeGPTConfig>) => {
   const config = await loadEdgeGPTConfig({
     cookies: options.cookies,
-    async: options.async,
+    stream: options.stream,
   });
 
   const chatBot = new ChatBot(config);
@@ -35,14 +35,14 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
       break;
     }
     if (cmd.prompt) {
-      if (config.async) {
-        logger.log(await chatBot.askAsync(cmd.prompt));
-      } else {
+      if (config.stream) {
         await chatBot.ask(cmd.prompt, (msg) => {
           process.stdout.write(msg.slice(wrote));
           wrote = msg.length;
         });
         process.stdout.write("\n");
+      } else {
+        logger.log(await chatBot.askAsync(cmd.prompt));
       }
     }
   }

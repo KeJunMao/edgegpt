@@ -8,12 +8,12 @@ export type Cookie = CookieItem[];
 
 export interface EdgeGPTConfig {
   cookies: Path | Path[];
-  async: boolean;
+  stream: boolean;
 }
 
 export interface ResolvedEdgeGPTConfig {
   cookies: Cookie[];
-  async: boolean;
+  stream: boolean;
 }
 
 export interface Conversation {
