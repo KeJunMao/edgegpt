@@ -8,7 +8,7 @@ import { logger } from "./utils";
 (async () => {
   const args = await yargs(hideBin(process.argv))
     .scriptName("edgegpt")
-    .usage("Usage: $0 -f [cookie file path]")
+    .usage("Usage: $0 [options]")
     .example("$0 -f cookie.json", "")
     .describe("f", "Cookie file path")
     .default("f", undefined, "cookie.json")
