@@ -1,0 +1,71 @@
+{
+  "name": "edgegpt",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@7.27.0",
+  "description": "",
+  "author": "KeJun",
+  "license": "MIT",
+  "homepage": "https://github.com/kejunmao/edgegpt#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kejunmao/edgegpt.git"
+  },
+  "bugs": "https://github.com/kejunmao/edgegpt/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "pnpm build",
+    "release": "bumpp && npm publish",
+    "start": "esno src/index.ts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^18.13.0",
+    "@types/prompts": "^2.4.2",
+    "@types/uuid": "^9.0.0",
+    "@types/ws": "^8.5.4",
+    "@types/yargs": "^17.0.22",
+    "bumpp": "^8.2.1",
+    "esno": "^0.16.3",
+    "tsup": "^6.6.3",
+    "typed-emitter": "^2.1.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vitest": "^0.28.5"
+  },
+  "dependencies": {
+    "c12": "^1.1.2",
+    "consola": "^2.15.3",
+    "lodash-es": "^4.17.21",
+    "ofetch": "^1.0.1",
+    "prompts": "^2.4.2",
+    "uuid": "^9.0.0",
+    "ws": "^8.12.1",
+    "yargs": "^17.7.0"
+  }
+}
