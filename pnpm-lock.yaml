@@ -12,6 +12,7 @@ importers:
       '@types/yargs': ^17.0.22
       bumpp: ^8.2.1
       c12: ^1.1.2
+      chalk: ^5.2.0
       consola: ^2.15.3
       esno: ^0.16.3
       lodash: ^4.17.21
@@ -26,6 +27,7 @@ importers:
       yargs: ^17.7.0
     dependencies:
       c12: 1.1.2
+      chalk: 5.2.0
       consola: 2.15.3
       lodash: 4.17.21
       prompts: 2.4.2
@@ -744,6 +746,11 @@ packages:
       pathval: 1.1.1
       type-detect: 4.0.8
     dev: true
+
+  /chalk/5.2.0:
+    resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
 
   /check-error/1.0.2:
     resolution: {integrity: sha512-BrgHpW9NURQgzoNyjfq0Wu6VFO6D7IZEmJNdtgNqpzGG8RuNFHt2jQxWlAs4HMe119chBnv+34syEZtc6IhLtA==}
