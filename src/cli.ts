@@ -8,7 +8,12 @@ import { logger } from "./utils";
 (async () => {
   const args = await yargs(hideBin(process.argv))
     .scriptName("edgegpt")
-    .usage("Usage: $0 [options]")
+    .usage(
+      `Usage: $0 [options]
+
+\t!reset Reset the conversation
+\t!exit Exit the program`
+    )
     .example("$0 -f cookie.json", "")
     .describe("f", "Cookie file path")
     .default("f", undefined, "cookie.json")
@@ -19,7 +24,10 @@ import { logger } from "./utils";
     .alias("h", "help")
     .version("version", version)
     .alias("v", "version")
-    .help().argv;
+    .help()
+    .epilog(
+      `Repo: https://github.com/kejunmao/edgegpt\nBy: KeJun\nLicense: MIT`
+    ).argv;
 
   run({
     cookies: args["cookieFile"],

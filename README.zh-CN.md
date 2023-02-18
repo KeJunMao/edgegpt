@@ -5,21 +5,21 @@
 
 # Edge GPT
 
-_The reverse engineering the chat feature of the new version of Bing_
+_new Bing 的聊天功能的逆向工程_
 
 [![npm version][npm-version-src]][npm-version-href]
 
 </div>
 
-English | [简体中文](./README.zh-CN.md)
+[English](./README.md) | 简体中文
 
-## Quick Start
+## 快速开始
 
 ```shell
 npx edgegpt
 ```
 
-## CLI Usage
+## 命令行用法
 
 ```shell
 npx edgegpt -h
@@ -42,12 +42,12 @@ By: KeJun
 License: MIT
 ```
 
-**Arguments:**
+**参数:**
 
 - `--stream`: Used stream mode, **true** will be used as default, you can use `--no-stream` to set `false`.
 - `-f, --cookie-file`: Cookie json file path, **cookie.json** will be used as default.
 
-## Module Usage
+## 模块用法
 
 ```ts
 import { Chatbot, loadEdgeGPTConfig } from "edgegpt";
@@ -59,26 +59,19 @@ await chatBot.create();
 console.log(await chatBot.askAsync("hello!"));
 ```
 
-## Configuration
+## 配置
 
-Configuration is loaded by [unjs/c12](https://github.com/unjs/c12) from cwd. You can use either `edgegpt.config.json`, `edgegpt.config.{ts,js,mjs,cjs}`, `.edgegptrc`.
+配置项使用 [unjs/c12](https://github.com/unjs/c12) 自动从 cwd 中加载。 你可以使用 `edgegpt.config.json`, `edgegpt.config.{ts,js,mjs,cjs}` 或者 `.edgegptrc`.
 
-See [./src/config.ts](./src/config.ts) for available options and defaults.
+有关可用选项和默认值，请参见 [./src/config.ts](./src/config.ts)
 
-## 💻 Development
+## 协议
 
-- Clone this repository
-- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable` (use `npm i -g corepack` for Node.js < 16.10)
-- Install dependencies using `pnpm install`
-- Run interactive tests using `pnpm dev`
+用 💛 发电
 
-## License
+根据 [MIT License](./LICENSE) 发布
 
-Made with 💛
-
-Published under [MIT License](./LICENSE).
-
-## Acknowledgement
+## 致谢
 
 - [EdgeGPT](https://github.com/acheong08/EdgeGPT/)
 
