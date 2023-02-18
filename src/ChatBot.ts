@@ -23,8 +23,9 @@ export class ChatBot {
     handler: (response: Record<string, any>) => void = () => {}
   ) {
     this.chatHub?.once("final", handler);
-    await this.chatHub?.askAsync(prompt);
+    return await this.chatHub?.askAsync(prompt);
   }
+  
   async ask(prompt: string, handler: (msg: string) => void = () => {}) {
     return new Promise(async (resolve) => {
       this.chatHub?.on("message", handler);
