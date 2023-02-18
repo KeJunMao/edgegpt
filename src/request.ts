@@ -2,19 +2,20 @@ import { Conversation } from "./types";
 
 export const createRequest = (con: Conversation) => {
   let invocationId = 0;
-  return (prompt: string) => {
+  return (
+    prompt: string,
+    options: string[] = [
+      "deepleo",
+      "enable_debug_commands",
+      "disable_emoji_spoken_text",
+      "enablemm",
+    ]
+  ) => {
     const request = {
       arguments: [
         {
           source: "cib",
-          optionsSets: [
-            "nlu_direct_response_filter",
-            "deepleo",
-            "enable_debug_commands",
-            "disable_emoji_spoken_text",
-            "responsible_ai_policy_235",
-            "enablemm",
-          ],
+          optionsSets: options,
           isStartOfSession: invocationId == 0,
           message: {
             author: "user",
