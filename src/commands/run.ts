@@ -3,7 +3,6 @@ import { EdgeGPTConfig } from "../types";
 
 import prompts, { Choice } from "prompts";
 import { ChatBot } from "../ChatBot";
-import { logger } from "../utils";
 import chalk from "chalk";
 
 export const run = async (options: Partial<EdgeGPTConfig>) => {
@@ -43,8 +42,8 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
       break;
     }
     if (cmd.prompt === "!reset") {
-      chatBot.reset();
-      break;
+      await chatBot.reset();
+      continue;
     }
     let wrote = 0;
     let response: any;
@@ -64,13 +63,13 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
         );
       }
       try {
-        choices = response["item"]["messages"][1]["suggestedResponses"].map(
-          (v: any) => {
+        choices = response["item"]["messages"][1]["suggestedResponses"]
+          .map((v: any) => {
             return {
               title: v.text,
             };
-          }
-        );
+          })
+          .filter((v: Choice) => typeof v.title === "string");
       } catch (error) {}
     }
   }

@@ -3,7 +3,7 @@ import { WebSocket } from "ws";
 import { DELIMITER } from "./constant";
 import { createRequest } from "./request";
 import { Conversation } from "./types";
-import { appendIdentifier, createHeaders, logger } from "./utils";
+import { appendIdentifier, createHeaders } from "./utils";
 import TypedEmitter from "typed-emitter";
 
 type ChatHubEvents = {
