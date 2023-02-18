@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 import { DELIMITER } from "./constant";
 import { Cookie } from "./types";
-import { createWriteStream } from "fs";
 
 export const logger = consola.create({
   defaults: {
@@ -51,5 +50,3 @@ export const stringifyCookie = (cookie: Cookie) =>
     pre += `${cur.name}=${cur.value};`;
     return pre;
   }, "");
-
-export const loggerFile = createWriteStream("./edgegpt.log");

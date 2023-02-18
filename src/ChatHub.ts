@@ -2,15 +2,15 @@ import EventEmitter from "events";
 import { WebSocket } from "ws";
 import { DELIMITER } from "./constant";
 import { createRequest } from "./request";
-import { Conversation } from "./types";
+import { Conversation, EdgeGPTResponse } from "./types";
 import { appendIdentifier, createHeaders } from "./utils";
 import TypedEmitter from "typed-emitter";
 
 type ChatHubEvents = {
   open: (ws: WebSocket) => void;
   message: (message: string) => void;
-  response: (response: Record<string, any>) => void;
-  final: (response: Record<string, any>) => void;
+  response: (response: EdgeGPTResponse) => void;
+  final: (response: EdgeGPTResponse) => void;
   close: (code: number, reason: Buffer) => void;
   error: (error: Error) => void;
 };
@@ -23,7 +23,7 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
     super();
     this.request = createRequest(conversation);
   }
-  
+
   async ask(prompt: string) {
     if (!this.ws || this.ws.readyState === WebSocket.CLOSED) {
       await this.createWs();
@@ -32,7 +32,7 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
   }
 
   askAsync(prompt: string) {
-    return new Promise((resolve) => {
+    return new Promise<string>((resolve) => {
       this.once("final", (response) => {
         resolve(
           response["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"]
@@ -43,7 +43,7 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
   }
 
   protected createWs() {
-    return new Promise((resolve) => {
+    return new Promise<WebSocket>((resolve) => {
       this.ws = new WebSocket("wss://sydney.bing.com/sydney/ChatHub", {
         headers: this.conversation.headers ?? createHeaders(),
       });
@@ -58,9 +58,9 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
           if (!obj) {
             continue;
           }
-          const response = JSON.parse(obj);
+          const response = JSON.parse(obj) as EdgeGPTResponse;
           if (response["type"] === 1) {
-            const text =
+            const text: string =
               response["arguments"][0]["messages"][0]["adaptiveCards"][0][
                 "body"
               ][0]["text"];

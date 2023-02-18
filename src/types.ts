@@ -25,3 +25,10 @@ export interface Conversation {
   };
   headers?: any;
 }
+
+export interface EdgeGPTResponse {
+  type: number;
+  item: Record<string, any>;
+  arguments: Record<string, any>[];
+  [x: string]: any;
+}

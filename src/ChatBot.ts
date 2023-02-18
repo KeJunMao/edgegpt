@@ -16,6 +16,7 @@ export class ChatBot {
 
     let conversation = await createConversation(cookie);
     this.chatHub = new ChatHub(conversation);
+    return this
   }
 
   async askAsync(
