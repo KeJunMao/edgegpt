@@ -23,6 +23,7 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
     super();
     this.request = createRequest(conversation);
   }
+  
   async ask(prompt: string) {
     if (!this.ws || this.ws.readyState === WebSocket.CLOSED) {
       await this.createWs();
