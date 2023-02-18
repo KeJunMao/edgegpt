@@ -18,10 +18,14 @@ export class ChatBot {
     this.chatHub = new ChatHub(conversation);
   }
 
-  async askAsync(prompt: string) {
+  async askAsync(
+    prompt: string,
+    handler: (response: Record<string, any>) => void = () => {}
+  ) {
+    this.chatHub?.once("final", handler);
     await this.chatHub?.askAsync(prompt);
   }
-  async ask(prompt: string, handler: (msg: string) => void) {
+  async ask(prompt: string, handler: (msg: string) => void = () => {}) {
     return new Promise(async (resolve) => {
       this.chatHub?.on("message", handler);
       this.chatHub?.once("final", (res) => {

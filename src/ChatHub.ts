@@ -9,6 +9,7 @@ import TypedEmitter from "typed-emitter";
 type ChatHubEvents = {
   open: (ws: WebSocket) => void;
   message: (message: string) => void;
+  response: (response: Record<string, any>) => void;
   final: (response: Record<string, any>) => void;
   close: (code: number, reason: Buffer) => void;
   error: (error: Error) => void;
@@ -63,6 +64,7 @@ export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEven
                 "body"
               ][0]["text"];
             this.emit("message", text);
+            this.emit("response", response);
           } else if (response["type"] === 2) {
             this.emit("final", response);
           }
