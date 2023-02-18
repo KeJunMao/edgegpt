@@ -22,7 +22,7 @@ export class ChatBot {
     prompt: string,
     handler: (response: Record<string, any>) => void = () => {}
   ) {
-    this.chatHub?.on("final", handler);
+    this.chatHub?.once("final", handler);
     return await this.chatHub?.askAsync(prompt);
   }
   

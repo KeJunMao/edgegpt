@@ -16,9 +16,9 @@ describe("ChatBot", async () => {
       [4]: https://vuejs.org/guide/introduction.html \\"Introduction | Vue.js\\"
       [5]: https://v2.vuejs.org/ \\"Vue.js\\"
 
-      Vue.js is a **progressive framework for building user interfaces**[^1^][1] [^2^][2]. It is based on **JavaScript**[^1^][1] [^2^][2] and can be used to create **single-page applications**[^1^][1].
+      Vue.js is a **progressive framework for building user interfaces**[^1^][1] [^2^][2] using JavaScript. It is **easy to integrate** with other projects and libraries[^1^][1] and can be used to develop **single-page applications**[^1^][1].
 
-      What are you looking for specifically about Vue.js? 🤔
+      Are you interested in learning more about Vue.js? 😊
       "
     `)
     bot.close();
