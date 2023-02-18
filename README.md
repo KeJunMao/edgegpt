@@ -50,7 +50,7 @@ License: MIT
 ## Module Usage
 
 ```ts
-import { Chatbot, loadEdgeGPTConfig } from "edgegpt";
+import { ChatBot, loadEdgeGPTConfig } from "edgegpt";
 const config = await loadEdgeGPTConfig();
 
 const chatBot = new ChatBot(config);
