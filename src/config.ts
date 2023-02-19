@@ -13,9 +13,10 @@ export const loadEdgeGPTConfig = async (
   overrides?: Partial<EdgeGPTConfig>,
   cwd = process.cwd()
 ) => {
-  const { config } = await loadConfig<EdgeGPTConfig>({
+  const { config, layers, configFile } = await loadConfig<EdgeGPTConfig>({
     name: "edgegpt",
     defaults: configDefaults,
+    globalRc: true,
     overrides: {
       ...(overrides as EdgeGPTConfig),
     },
