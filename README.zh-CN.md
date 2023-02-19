@@ -5,7 +5,9 @@
 
 # Edge GPT
 
-_new Bing 的聊天功能的逆向工程_
+![](./assets/demo.gif)
+
+_新必应的聊天功能的逆向工程_
 
 [![npm version][npm-version-src]][npm-version-href]
 

@@ -3,7 +3,10 @@
 [![Bing](./assets/bing.svg)][bing-href]
 [![Bing](./assets/node.svg)][node-href]
 
+
 # Edge GPT
+
+![](./assets/demo.gif)
 
 _The reverse engineering the chat feature of the new version of Bing_
 
@@ -18,6 +21,7 @@ English | [简体中文](./README.zh-CN.md)
 ```shell
 npx edgegpt
 ```
+
 
 ## CLI Usage
 
