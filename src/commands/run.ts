@@ -3,7 +3,11 @@ import { EdgeGPTConfig } from "../types";
 
 import prompts, { Choice } from "prompts";
 import { ChatBot } from "../ChatBot";
-import chalk from "chalk";
+import ora from "ora";
+// @ts-expect-error
+import { marked } from "marked";
+// @ts-expect-error
+import TerminalRenderer from "marked-terminal";
 
 export const run = async (options: Partial<EdgeGPTConfig>) => {
   const config = await loadEdgeGPTConfig({
@@ -13,8 +17,10 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
 
   const chatBot = new ChatBot(config);
   await chatBot.create();
-  const prefix = [chalk.blue("?"), chalk.bold("Bing: ")].join(" ");
   let choices: Choice[] = [];
+  marked.setOptions({
+    renderer: new TerminalRenderer(),
+  });
 
   while (true) {
     const cmd = await prompts([
@@ -37,30 +43,37 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
     choices = [];
     if (!cmd.prompt) {
       continue;
-    }
-    if (cmd.prompt === "!exit") {
+    } else if (cmd.prompt === "!exit") {
+      chatBot.close();
       break;
-    }
-    if (cmd.prompt === "!reset") {
+    } else if (cmd.prompt === "!reset") {
       await chatBot.reset();
       continue;
     }
-    let wrote = 0;
-    let response: any;
     if (cmd.prompt) {
-      process.stdout.write(prefix);
+      let response: any;
+      const spinnerPrefix = "Bing is typing...";
+      const spinner = ora(spinnerPrefix);
+      spinner.start();
       if (config.stream) {
         response = await chatBot.ask(cmd.prompt, (msg) => {
-          process.stdout.write(msg.slice(wrote));
-          wrote = msg.length;
+          spinner.text = `${spinnerPrefix}\n${marked(msg)}`;
         });
-      } else {
-        process.stdout.write(
-          prefix +
-            (await chatBot.askAsync(cmd.prompt, (res) => {
-              response = res;
-            }))
+        spinner.stop();
+        console.log(
+          marked(
+            response["item"]?.["messages"]?.[1]?.["adaptiveCards"]?.[0]?.[
+              "body"
+            ]?.[0]?.["text"]?.trim()
+          )
         );
+      } else {
+        const msg = await chatBot.askAsync(cmd.prompt, (res) => {
+          spinner.stop();
+          response = res;
+        });
+
+        console.log(marked(msg?.trim()));
       }
       try {
         choices = response["item"]["messages"][1]["suggestedResponses"]
