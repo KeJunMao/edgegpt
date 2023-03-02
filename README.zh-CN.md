@@ -31,6 +31,7 @@ Usage: edgegpt [options]
 
         !reset Reset the conversation
         !exit Exit the program
+        !options Set request options
 
 Options:
   -f, --cookie-file  Cookie file path                                                          [default: cookie.json]
