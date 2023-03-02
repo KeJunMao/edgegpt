@@ -13,7 +13,8 @@ import { logger } from "./utils";
       `Usage: $0 [options]
 
 \t!reset Reset the conversation
-\t!exit Exit the program`
+\t!exit Exit the program
+\t!options Set request options`
     )
     .example("$0 -f cookie.json", "")
     .describe("f", "Cookie file path")
