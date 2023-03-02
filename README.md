@@ -3,7 +3,6 @@
 [![Bing](./assets/bing.svg)][bing-href]
 [![Bing](./assets/node.svg)][node-href]
 
-
 # Edge GPT
 
 ![](./assets/demo.gif)
@@ -22,7 +21,6 @@ English | [简体中文](./README.zh-CN.md)
 npx edgegpt
 ```
 
-
 ## CLI Usage
 
 ```shell
@@ -33,11 +31,11 @@ Usage: edgegpt [options]
         !exit Exit the program
 
 Options:
-  -f, --cookie-file  Cookie file path                     [default: cookie.json]
-      --stream       Used stream mode                  [boolean] [default: true]
-  -h, --help         Show help                                         [boolean]
-  -v, --version      Show version number                               [boolean]
-
+  -f, --cookie-file  Cookie file path                                                          [default: cookie.json]
+      --stream       Used stream mode                                                       [boolean] [default: true]
+  -h, --help         Show help                                                                              [boolean]
+  -v, --version      Show version number                                                                    [boolean]
+      --options      Request options  [array] [default: deepleo,enable_debug_commands,disable_emoji_spoken_text,enablemm]
 Examples:
   edgegpt -f cookie.json
 
@@ -50,6 +48,7 @@ License: MIT
 
 - `--stream`: Used stream mode, **true** will be used as default, you can use `--no-stream` to set `false`.
 - `-f, --cookie-file`: Cookie json file path, **cookie.json** will be used as default.
+- `--options`: Request options, **"deepleo", "enable_debug_commands", "disable_emoji_spoken_text", "enablemm"** will be used as default, you can find more options [here](./src/types.ts)
 
 ## Module Usage
 
