@@ -16,7 +16,7 @@ export class ChatBot {
 
     let conversation = await createConversation(cookie);
     this.chatHub = new ChatHub(conversation);
-    return this
+    return this;
   }
 
   async askAsync(
@@ -24,9 +24,9 @@ export class ChatBot {
     handler: (response: Record<string, any>) => void = () => {}
   ) {
     this.chatHub?.once("final", handler);
-    return await this.chatHub?.askAsync(prompt);
+    return await this.chatHub?.askAsync(prompt, this.config.requestOptions);
   }
-  
+
   async ask(prompt: string, handler: (msg: string) => void = () => {}) {
     return new Promise(async (resolve) => {
       this.chatHub?.on("message", handler);
@@ -34,7 +34,7 @@ export class ChatBot {
         this.chatHub?.off("message", handler);
         resolve(res);
       });
-      await this.chatHub?.ask(prompt);
+      await this.chatHub?.ask(prompt, this.config.requestOptions);
     });
   }
 

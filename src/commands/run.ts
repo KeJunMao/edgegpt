@@ -13,10 +13,10 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
   const config = await loadEdgeGPTConfig({
     cookies: options.cookies,
     stream: options.stream,
+    requestOptions: options.requestOptions,
   });
 
   const chatBot = new ChatBot(config);
-  await chatBot.create();
   let choices: Choice[] = [];
   marked.setOptions({
     renderer: new TerminalRenderer(),
@@ -49,8 +49,16 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
     } else if (cmd.prompt === "!reset") {
       await chatBot.reset();
       continue;
+    } else if (cmd.prompt.startsWith("!options")) {
+      const [_c, optstr] = cmd.prompt.split(" ");
+      config.requestOptions = optstr.split(",").map((v: string) => v.trim());
+      console.log(`Update conversation request options to: ${config.requestOptions}`);
+      continue;
     }
     if (cmd.prompt) {
+      if (!chatBot.chatHub) {
+        await chatBot.reset();
+      }
       let response: any;
       const spinnerPrefix = "Bing is typing...";
       const spinner = ora(spinnerPrefix);

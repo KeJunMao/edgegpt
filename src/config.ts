@@ -1,19 +1,21 @@
 import { loadConfig } from "c12";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { defaultRequestOptions } from "./request";
 import { EdgeGPTConfig, ResolvedEdgeGPTConfig } from "./types";
 import { logger } from "./utils";
 
 const configDefaults: EdgeGPTConfig = {
   cookies: "cookie.json",
   stream: true,
+  requestOptions: defaultRequestOptions,
 };
 
 export const loadEdgeGPTConfig = async (
   overrides?: Partial<EdgeGPTConfig>,
   cwd = process.cwd()
 ) => {
-  const { config, layers, configFile } = await loadConfig<EdgeGPTConfig>({
+  const { config } = await loadConfig<EdgeGPTConfig>({
     name: "edgegpt",
     defaults: configDefaults,
     globalRc: true,
@@ -36,5 +38,6 @@ export const loadEdgeGPTConfig = async (
     });
     return JSON.parse(f);
   });
+  config.requestOptions = config.requestOptions.filter((v) => v);
   return config as unknown as ResolvedEdgeGPTConfig;
 };

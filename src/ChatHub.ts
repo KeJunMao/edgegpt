@@ -2,7 +2,7 @@ import EventEmitter from "events";
 import { WebSocket } from "ws";
 import { DELIMITER } from "./constant";
 import { createRequest } from "./request";
-import { Conversation, EdgeGPTResponse } from "./types";
+import { Conversation, EdgeGPTResponse, RequestOptions } from "./types";
 import { appendIdentifier, createHeaders } from "./utils";
 import TypedEmitter from "typed-emitter";
 
@@ -17,28 +17,28 @@ type ChatHubEvents = {
 
 export class ChatHub extends (EventEmitter as new () => TypedEmitter<ChatHubEvents>) {
   protected ws!: WebSocket;
-  protected request: (prompt: string) => any;
+  protected request: (prompt: string, options?: RequestOptions) => any;
 
   constructor(protected conversation: Conversation) {
     super();
     this.request = createRequest(conversation);
   }
 
-  async ask(prompt: string) {
+  async ask(prompt: string, options?: RequestOptions) {
     if (!this.ws || this.ws.readyState === WebSocket.CLOSED) {
       await this.createWs();
     }
-    this.send(this.request(prompt));
+    this.send(this.request(prompt, options));
   }
 
-  askAsync(prompt: string) {
+  askAsync(prompt: string, options?: RequestOptions) {
     return new Promise<string>((resolve) => {
       this.once("final", (response) => {
         resolve(
           response["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"]
         );
       });
-      this.ask(prompt);
+      this.ask(prompt, options);
     });
   }
 

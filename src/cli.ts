@@ -3,6 +3,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { version } from "../package.json";
 import { run } from "./commands/run";
+import { defaultRequestOptions } from "./request";
 import { logger } from "./utils";
 
 (async () => {
@@ -21,6 +22,11 @@ import { logger } from "./utils";
     .boolean("stream")
     .describe("stream", "Used stream mode")
     .default("stream", undefined, "true")
+    .option("options", {
+      type: "array",
+    })
+    .default("options", undefined, defaultRequestOptions.join(","))
+    .describe("options", "Conversation request options")
     .alias("h", "help")
     .version("version", version)
     .alias("v", "version")
@@ -32,5 +38,6 @@ import { logger } from "./utils";
   run({
     cookies: args["cookieFile"],
     stream: args["stream"],
+    requestOptions: args["options"],
   }).catch(logger.error);
 })();
