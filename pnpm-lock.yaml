@@ -12,6 +12,7 @@ importers:
       '@types/yargs': ^17.0.22
       bumpp: ^8.2.1
       c12: ^1.1.2
+      chalk: ^5.2.0
       consola: ^2.15.3
       esno: ^0.16.3
       lodash: ^4.17.21
@@ -29,6 +30,7 @@ importers:
       yargs: ^17.7.0
     dependencies:
       c12: 1.1.2
+      chalk: 5.2.0
       consola: 2.15.3
       lodash: 4.17.21
       marked: 4.2.12

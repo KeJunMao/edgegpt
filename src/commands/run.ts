@@ -1,6 +1,6 @@
 import { loadEdgeGPTConfig } from "../config";
-import { EdgeGPTConfig } from "../types";
-
+import { EdgeGPTConfig, EdgeGPTResponseThrottling } from "../types";
+import chalk from "chalk";
 import prompts, { Choice } from "prompts";
 import { ChatBot } from "../ChatBot";
 import ora from "ora";
@@ -8,6 +8,15 @@ import ora from "ora";
 import { marked } from "marked";
 // @ts-expect-error
 import TerminalRenderer from "marked-terminal";
+
+function createOrUpdateSpinnerPrefix(throttling?: EdgeGPTResponseThrottling) {
+  if (throttling) {
+    return chalk.bold(
+      `Bing(${throttling.numUserMessagesInConversation}/${throttling.maxNumUserMessagesInConversation}): `
+    );
+  }
+  return chalk.bold("Bing: ");
+}
 
 export const run = async (options: Partial<EdgeGPTConfig>) => {
   const config = await loadEdgeGPTConfig({
@@ -22,6 +31,7 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
     renderer: new TerminalRenderer(),
   });
 
+  let spinnerPrefix = createOrUpdateSpinnerPrefix();
   while (true) {
     const cmd = await prompts([
       {
@@ -52,7 +62,9 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
     } else if (cmd.prompt.startsWith("!options")) {
       const [_c, optstr] = cmd.prompt.split(" ");
       config.requestOptions = optstr.split(",").map((v: string) => v.trim());
-      console.log(`Update conversation request options to: ${config.requestOptions}`);
+      console.log(
+        `Update conversation request options to: ${config.requestOptions}`
+      );
       continue;
     }
     if (cmd.prompt) {
@@ -60,28 +72,37 @@ export const run = async (options: Partial<EdgeGPTConfig>) => {
         await chatBot.reset();
       }
       let response: any;
-      const spinnerPrefix = "Bing is typing...";
+
       const spinner = ora(spinnerPrefix);
       spinner.start();
       if (config.stream) {
         response = await chatBot.ask(cmd.prompt, (msg) => {
-          spinner.text = `${spinnerPrefix}\n${marked(msg)}`;
+          spinner.text = `${spinnerPrefix}${marked(msg ?? "")}`;
         });
         spinner.stop();
+        spinnerPrefix = createOrUpdateSpinnerPrefix(
+          response["item"]["throttling"]
+        );
         console.log(
-          marked(
-            response["item"]?.["messages"]?.[1]?.["adaptiveCards"]?.[0]?.[
-              "body"
-            ]?.[0]?.["text"]?.trim()
-          )
+          chalk.green("! ") +
+            spinnerPrefix +
+            marked(
+              response["item"]?.["messages"]?.[1]?.["adaptiveCards"]?.[0]?.[
+                "body"
+              ]?.[0]?.["text"]?.trim() ?? ""
+            )
         );
       } else {
         const msg = await chatBot.askAsync(cmd.prompt, (res) => {
           spinner.stop();
           response = res;
+          spinnerPrefix = createOrUpdateSpinnerPrefix(
+            response["item"]["throttling"]
+          );
         });
-
-        console.log(marked(msg?.trim()));
+        console.log(
+          chalk.green("? ") + spinnerPrefix + marked(msg?.trim() ?? "")
+        );
       }
       try {
         choices = response["item"]["messages"][1]["suggestedResponses"]

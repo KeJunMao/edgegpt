@@ -51,3 +51,8 @@ export interface EdgeGPTResponse {
   arguments: Record<string, any>[];
   [x: string]: any;
 }
+
+export interface EdgeGPTResponseThrottling {
+  maxNumUserMessagesInConversation: number;
+  numUserMessagesInConversation: number;
+}
